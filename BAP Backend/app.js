@@ -11,7 +11,7 @@ const expressSession = require("express-session");
 const flash = require("connect-flash");
 
 const usersRouter = require("./routes/usersRouter");
-const indexRouter = require("./routes/index");
+// const indexRouter = require("./routes/index");
 const onbRoutesGet = require("./routes/onbRoutesGet");
 const onbRoutesPost = require("./routes/onbRoutesPost");
 const uploadRoutes = require("./routes/upload");
@@ -43,7 +43,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 
 app.use("/users", usersRouter);
-app.use("/", indexRouter);
+// app.use("/", indexRouter);
 app.use("/onb", onbRoutesGet);
 app.use("/onbP", onbRoutesPost);
 app.use("/upload", uploadRoutes);
