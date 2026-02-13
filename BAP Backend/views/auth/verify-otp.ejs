@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Verify OTP</title>
+  <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+  <% if (success.length) { %>
+  <div class="flash success"><%= success[0] %></div>
+<% } %>
+
+<% if (error.length) { %>
+  <div class="flash error"><%= error[0] %></div>
+<% } %>
+  <form class="auth-card" action="/users/verifyOtp" method="POST">
+    <h2>Verify Email</h2>
+
+    <input name="email" type="email" placeholder="Email" required>
+    <input name="otp" placeholder="Enter OTP" required>
+    <button type="submit">Verify</button>
+  </form>
+</body>
+</html>

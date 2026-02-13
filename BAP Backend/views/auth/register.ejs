@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+  <% if (success.length) { %>
+  <div class="flash success"><%= success[0] %></div>
+<% } %>
+
+<% if (error.length) { %>
+  <div class="flash error"><%= error[0] %></div>
+<% } %>
+  <form class="auth-card" action="/users/register" method="POST">
+    <h2>Create Account</h2>
+
+    <input name="firstname" placeholder="First name" required>
+    <input name="lastname" placeholder="Last name" required>
+    <input name="email" type="email" placeholder="Email" required>
+    <input name="password" type="password" placeholder="Password" required>
+    <!-- <input name="role" type="text" placeholder="role" required> -->
+
+
+    <button type="submit">Register</button>
+
+    <div class="link">
+      <a href="/login">Already have an account?</a>
+    </div>
+  </form>
+</body>
+</html>

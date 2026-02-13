@@ -1,0 +1,188 @@
+* {
+  box-sizing: border-box;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f4f6fb;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CARD */
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 14px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+.auth-card h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* INPUTS & BUTTONS (GLOBAL) */
+input,
+button {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+}
+
+button {
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #4338ca;
+}
+
+/* LINKS */
+.link {
+  text-align: center;
+  font-size: 14px;
+}
+
+.link a {
+  color: #4f46e5;
+  text-decoration: none;
+}
+
+/* Home PAGE */
+.home-card {
+  text-align: center;
+}
+
+.welcome-text {
+  font-size: 16px;
+  color: #374151;
+  margin-bottom: 2rem;
+}
+
+/* ACTION BUTTONS FIX */
+.home-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.home-actions a,
+.home-actions form {
+  width: auto;
+}
+
+.home-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+  align-items: stretch; /* KEY */
+}
+
+/* remove form default spacing */
+.home-actions form {
+  margin: 0;
+}
+
+/* make both buttons identical */
+.logout-btn,
+.delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 150px;
+  height: 48px;
+  padding: 0 20px;   /* FIX */
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 10px;
+  background: #ef4444;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+    line-height: 3;
+
+}
+
+
+.logout-btn:hover,
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+
+/* LOGOUT */
+.logout-btn {
+  display: inline-block;
+  background: #ef4444;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.logout-btn:hover {
+  background: #dc2626;
+}
+
+/* DELETE */
+.delete-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+/* FLASH MESSAGES */
+.flash {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 9999;
+  animation: fadeOut 0.5s ease forwards;
+  animation-delay: 3s;
+}
+
+.flash.success {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+}
+
+.flash.error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* ANIMATION */
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    top: 0;
+  }
+}
