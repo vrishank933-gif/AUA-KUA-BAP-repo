@@ -10,11 +10,8 @@ router.get('/', function (req, res) {
   res.send("users router working");
 });
 
-// router.post('/register', registerUser);
-
 router.post('/verifyOtp', verifyOtp);
 
-// router.post('/login',loginUser);
 
 router.post('/forgotPassword',forgotPassword);
 

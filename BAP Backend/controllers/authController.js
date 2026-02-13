@@ -350,7 +350,7 @@ try {
     ];
 
     const {rows} = await pool.query(insertQuery, values);
-    return res.json("successful");
+    return res.status(200).json({message:"successful"});
 
   } catch (err) {
     console.error("REGISTER ERROR:", err);
