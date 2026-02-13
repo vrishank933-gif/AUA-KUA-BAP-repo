@@ -1,0 +1,137 @@
+.application-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(to right, #eef2f7, #f6f9fc);
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.application-card {
+  width: 1100px;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+  border-top: 6px solid #0b5ed7;
+}
+
+.application-card h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #1c2a39;
+}
+
+.step-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #0b5ed7;
+}
+
+.section-box {
+  background: #f9fbfd;
+  padding: 25px;
+  border-radius: 8px;
+  border: 1px solid #e3e9f2;
+  margin-bottom: 40px;  /* increase this */
+}
+
+.section-box h4 {
+  margin-bottom: 20px;
+  color: #0b5ed7;
+  font-weight: 600;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  column-gap: 40px;   /* horizontal spacing */
+  row-gap: 30px;      /* vertical spacing */
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+.section-box input[type="text"],
+.section-box input[type="file"] {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ccd6e0;
+  border-radius: 6px;
+  margin-top: 6px;     /* space between label & input */
+  font-size: 14px;
+}
+
+.section-box input:focus {
+  border-color: #0b5ed7;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(11, 94, 215, 0.1);
+}
+
+
+.section-box label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+
+.section-box input[type="radio"],
+.section-box input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.upload-box {
+  margin-top: 15px;
+}
+
+.button-center {
+  text-align: center;
+}
+
+.button-center button {
+  background: #0b5ed7;
+  color: white;
+  padding: 12px 40px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.button-center button:hover {
+  background: #084298;
+}
+
+.error-text {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.auth-row {
+  margin-bottom: 25px;
+}
+
+.auth-label {
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 30px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.checkbox-item {
+  display: block;
+  margin-bottom: 8px;
+}

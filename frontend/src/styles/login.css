@@ -1,0 +1,122 @@
+/* Background */
+.login-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #eef2f7, #dbe4f0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Card */
+.login-card {
+  width: 460px;
+  max-width: 95%;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+  position: relative;
+  padding: 45px 40px;   /* ← left & right equal */
+}
+
+/* Top Accent Bar */
+.login-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 6px;
+  width: 100%;
+  background: #0B3D91;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* Heading */
+.login-card h2 {
+  text-align: center;
+  color: #0B3D91;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 35px;
+  letter-spacing: 0.5px;
+}
+
+/* Inputs */
+.login-card input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  border: 1px solid #cdd6e1;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.login-card input:focus {
+  outline: none;
+  border-color: #1E5BB8;
+  box-shadow: 0 0 0 3px rgba(30, 91, 184, 0.15);
+}
+
+/* Button */
+.login-card button {
+  width: 100%;
+  padding: 14px;
+  background: #1E5BB8;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.login-card button:hover {
+  background: #0B3D91;
+  transform: translateY(-1px);
+}
+
+/* Links */
+.login-links {
+  text-align: center;
+  margin-top: 22px;
+}
+
+.login-links a {
+  color: #0B3D91;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  margin: 0 8px;
+  transition: 0.2s ease;
+}
+
+.login-links a:hover {
+  text-decoration: underline;
+}
+
+/* Validation */
+.error-text {
+  color: #d32f2f;
+  font-size: 13px;
+  margin-top: -10px;
+  margin-bottom: 12px;
+}
+
+.success-text {
+  color: #2e7d32;
+  font-size: 14px;
+  margin-top: 12px;
+  text-align: center;
+}
+* {
+  box-sizing: border-box;
+}
+.login-card input,
+.login-card button {
+  width: 100%;
+}
