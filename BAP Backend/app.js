@@ -17,8 +17,8 @@ const flash = require("connect-flash");
 // const uploadRoutes = require("./routes/upload"); not required as of now, will be used when we have file upload functionality in application form
 
 const usersRouter = require("./routes/usersRouter");
-const applicationRoutesPost = require("./routes/applicationRoutesPost");
-const applicationRoutesGet = require("./routes/applicationRoutesGet");
+const applicationRoutes = require("./routes/applicationRoutes");
+// const applicationRoutesGet = require("./routes/applicationRoutesGet");
 
 
 require("./config/mongoose-connection");
@@ -48,8 +48,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 
 app.use("/users", usersRouter);
-app.use("/application", applicationRoutesPost);
-app.use("/application", applicationRoutesGet);
+app.use("/application", applicationRoutes);
+// app.use("/application", applicationRoutesGet);
 
 
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const upload = require('../middlewares/upload');
-const {submitApplication} = require('../controllers/applicationController');
+const {submitApplication,updateApplication,getApplication} = require('../controllers/applicationController');
 const isLoggedIn = require('../middlewares/isLoggedIn');
 
 const uploadFields = upload.fields([
@@ -17,6 +17,10 @@ const uploadFields = upload.fields([
   { name: 'declaration_understanding_documentpath', maxCount: 1 },
 ]);
 
+router.get('/getApplication',isLoggedIn, getApplication);
+
 router.post('/submitApplication',isLoggedIn, uploadFields, submitApplication);
+
+router.put('/updateApplication',isLoggedIn, uploadFields, updateApplication);
 
 module.exports = router;
