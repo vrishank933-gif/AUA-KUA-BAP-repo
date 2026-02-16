@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
     cb(null, UPLOADS_DIR);
   },
   filename: (req, file, cb) => {
-    const uid = sanitize(req.body?.userid || 'unknown');
+    const uid = sanitize(req.user?.userid || 'unknown');
     const baseName = sanitize(stripDocumentpathSuffix(file.fieldname) || 'file');
     const ext = path.extname(file.originalname || '').toLowerCase();
     cb(null, `${uid}_${baseName}${ext || ''}`);

@@ -137,7 +137,8 @@ module.exports.submitApplication = async (req, res) => {
       message: 'Applicant created successfully',
       id: rows[0].id,
     });
-  } catch (err) {
+  } 
+  catch (err) {
     console.error('Create applicant error:', err);
     return res.status(500).json({ error: 'Internal server error' });
   } 
