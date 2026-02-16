@@ -1,0 +1,207 @@
+:root {
+  --color-primary: #FFE600;
+  --color-primary-hover: #E6CF00;
+  --color-secondary: #1C1C1C;
+  --color-text: #FFFFFF;
+  --color-muted: #C4C4C4;
+}
+
+.landing-container {
+  min-height: 100vh;
+  background: radial-gradient(
+      circle at 20% 40%,
+      rgba(255, 230, 0, 0.08),
+      transparent 40%
+    ),
+    linear-gradient(120deg, #141414, #1C1C1C);
+  color: var(--color-text);
+  font-family: "Segoe UI", sans-serif;
+}
+
+
+/* Header */
+.landing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 60px;
+  border-bottom: 2px solid #FFE600;
+  background: #1C1C1C;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.gov-small {
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.gov-main {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.login-btn {
+  background-color: var(--color-primary);
+  border: none;
+  padding: 10px 22px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* Hero */
+.hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 140px 120px;
+}
+
+.hero-left {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fingerprint-system {
+  position: relative;
+  width: 500px;
+  height: 500px;
+}
+
+
+.hero-left::before {
+  content: "";
+  position: absolute;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 230, 0, 0.15),
+    transparent 65%
+  );
+  border-radius: 50%;
+  z-index: 0;
+}
+.hero-content {
+  max-width: 700px;
+}
+
+.hero-content h1 {
+  font-size: 52px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  line-height: 1.2;
+}
+
+.hero-content p {
+  font-size: 18px;
+  color: #C4C4C4;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.primary-btn {
+  margin-top: 35px;
+  background-color: var(--color-primary);
+  border: none;
+  padding: 14px 32px;
+  font-weight: bold;
+  cursor: pointer;
+}
+/* SVG image */
+.hero-image {
+  width: 100%;
+  filter: drop-shadow(0 0 40px rgba(255, 230, 0, 0.35));
+}
+
+.hero-content h1 {
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 28px;
+}
+
+.system-label {
+  position: absolute;
+  font-size: 13px;
+  color: rgba(255, 230, 0, 0.35);
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: 0.3s ease;
+}
+/* Positions */
+.top {
+  top: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bottom {
+  bottom: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.top-left {
+  top: 18%;
+  left: 5%;
+}
+
+.top-right {
+  top: 18%;
+  right: 5%;
+}
+
+.bottom-right {
+  bottom: 18%;
+  right: 5%;
+}
+.system-label:hover {
+  color: #FFE600;
+  text-shadow: 0 0 10px rgba(255, 230, 0, 0.8);
+}
+
+.primary-btn {
+  margin-top: 40px;
+  background-color: var(--color-primary);
+  border: none;
+  padding: 16px 38px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(255, 230, 0, 0.2);
+}
+
+.primary-btn:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(255, 230, 0, 0.4);
+}
+.aadhaar-logo {
+  height: 58px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.portal-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
