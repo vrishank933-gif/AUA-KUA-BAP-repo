@@ -14,8 +14,9 @@ const flash = require("connect-flash");
 // const indexRouter = require("./routes/index");
 // const onbRoutesGet = require("./routes/onbRoutesGet");
 // const onbRoutesPost = require("./routes/onbRoutesPost");
+// const uploadRoutes = require("./routes/upload"); not required as of now, will be used when we have file upload functionality in application form
+
 const usersRouter = require("./routes/usersRouter");
-const uploadRoutes = require("./routes/upload");
 const applicationRoutesPost = require("./routes/applicationRoutesPost");
 
 
@@ -46,12 +47,11 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 
 app.use("/users", usersRouter);
-app.use("/upload", uploadRoutes);
 app.use("/application", applicationRoutesPost);
 
 
 
-
+// app.use("/upload", uploadRoutes); not required as of now, will be used when we have file upload functionality in application form
 // app.use("/", indexRouter);
 // app.use("/onb", onbRoutesGet);
 // app.use("/onbP", onbRoutesPost); not needed as of now, will be used when we have onboarding form to submit
