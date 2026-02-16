@@ -11,6 +11,10 @@ const uploadFields = upload.fields([
   { name: 'tax_tan_documentpath', maxCount: 1 },
   { name: 'board_resolution_documentpath', maxCount: 1 },
   { name: 'provision_aadhar_documentpath', maxCount: 1 }, 
+  { name: 'declaration_asa_documentpath', maxCount: 1 },
+  { name: 'applicant_conf_uidai_info_policy_documentpath', maxCount: 1 },
+  { name: 'applicant_conf_uidai_model_doc_documentpath', maxCount: 1 },
+  { name: 'declaration_understanding_documentpath', maxCount: 1 },
 ]);
 
 router.post('/submitApplication',isLoggedIn, uploadFields, submitApplication);

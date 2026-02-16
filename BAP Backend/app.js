@@ -18,6 +18,7 @@ const flash = require("connect-flash");
 
 const usersRouter = require("./routes/usersRouter");
 const applicationRoutesPost = require("./routes/applicationRoutesPost");
+const applicationRoutesGet = require("./routes/applicationRoutesGet");
 
 
 require("./config/mongoose-connection");
@@ -48,6 +49,7 @@ app.set("view engine", "ejs");
 
 app.use("/users", usersRouter);
 app.use("/application", applicationRoutesPost);
+app.use("/application", applicationRoutesGet);
 
 
 
@@ -55,6 +57,8 @@ app.use("/application", applicationRoutesPost);
 // app.use("/", indexRouter);
 // app.use("/onb", onbRoutesGet);
 // app.use("/onbP", onbRoutesPost); not needed as of now, will be used when we have onboarding form to submit
+
+
 
 
 app.listen(3000);
