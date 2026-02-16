@@ -4,10 +4,10 @@ const path = require("path");
 
 const router = express.Router();
 
-// Storage config
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/"); // make sure this folder exists
+    cb(null, "uploads/"); 
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -16,24 +16,20 @@ const storage = multer.diskStorage({
   },
 });
 
-// Optional: file filter (allow only images/pdf for example)
 const fileFilter = (req, file, cb) => {
   const allowed = ["image/jpeg", "image/png", "application/pdf"];
   if (allowed.includes(file.mimetype)) cb(null, true);
   else cb(new Error("Only JPG/PNG/PDF files are allowed"), false);
 };
 
-// Optional: limits
+
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
+  limits: { fileSize: 5 * 1024 * 1024 },
 });
 
-// Route: single file upload
 router.post("/single", upload.single("file"), (req, res) => {
-  // file info is in req.file
-  // other text fields are in req.body
   if (!req.file) return res.status(400).json({ success: false, message: "No file uploaded" });
 
   res.json({
