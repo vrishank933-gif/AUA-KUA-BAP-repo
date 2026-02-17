@@ -7,24 +7,43 @@ if (!fs.existsSync(UPLOADS_DIR)) {
   fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 }
 
-const sanitize = (name) =>
+const sanitizeName = (name) =>
   String(name || '')
     .trim()
-    .replace(/\s+/g, '_')
-    .replace(/[^a-zA-Z0-9._-]/g, '')
+    .replace(/[^\w.\-\s]/g, '_'); 
 
-const stripDocumentpathSuffix = (fieldname) =>
-  String(fieldname || '').replace(/_documentpath$/i, '');
+const sanitizeId = (id) =>
+  String(id || 'unknown')
+    .trim()
+    .replace(/\s+/g, '_')
+    .replace(/[^a-zA-Z0-9._-]/g, ''); 
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, UPLOADS_DIR);
+    try {
+      const uid = sanitizeId(req.user?.userid || 'unknown');
+      const userDir = path.join(UPLOADS_DIR, uid);
+
+      fs.mkdir(userDir, { recursive: true }, (err) => {
+        if (err) return cb(err);
+        cb(null, userDir);
+      });
+    } catch (e) {
+      cb(e);
+    }
   },
   filename: (req, file, cb) => {
-    const uid = sanitize(req.user?.userid || 'unknown');
-    const baseName = sanitize(stripDocumentpathSuffix(file.fieldname) || 'file');
-    const ext = path.extname(file.originalname || '').toLowerCase();
-    cb(null, `${uid}_${baseName}${ext || ''}`);
+    try {
+      const original = file.originalname || 'file';
+      const safeOriginal = sanitizeName(original);
+
+      const fallback =
+        (path.extname(original) && ('upload' + path.extname(original))) || 'upload';
+
+      cb(null, safeOriginal || fallback);
+    } catch (e) {
+      cb(e);
+    }
   },
 });
 
@@ -44,8 +63,9 @@ const upload = multer({
   storage,
   fileFilter,
   limits: {
-    fileSize: 10 * 1024 * 1024,
+    fileSize: 10 * 1024 * 1024, // 10MB
     files: 10,
   },
 });
+
 module.exports = upload;

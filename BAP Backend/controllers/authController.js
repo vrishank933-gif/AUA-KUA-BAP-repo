@@ -2,6 +2,11 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { generateToken } = require("../utils/generateTokens");
 const pool = require("../db");
+const prisma = require('../lib/prisma');
+
+
+
+// const {}
 
 module.exports.logoutUser=async function (req, res){
   try {

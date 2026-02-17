@@ -49,7 +49,6 @@ app.set("view engine", "ejs");
 
 app.use("/users", usersRouter);
 app.use("/application", applicationRoutes);
-// app.use("/application", applicationRoutesGet);
 
 
 

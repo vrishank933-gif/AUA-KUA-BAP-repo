@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const upload = require('../middlewares/upload');
-const {submitApplication,updateApplication,getApplication} = require('../controllers/applicationController');
+const {submitApplication,updateApplication,getApplication,getStatus} = require('../controllers/applicationController');
 const isLoggedIn = require('../middlewares/isLoggedIn');
 
 const uploadFields = upload.fields([
@@ -22,5 +22,7 @@ router.get('/getApplication',isLoggedIn, getApplication);
 router.post('/submitApplication',isLoggedIn, uploadFields, submitApplication);
 
 router.put('/updateApplication',isLoggedIn, uploadFields, updateApplication);
+
+router.get('/getStatus', isLoggedIn, getStatus);
 
 module.exports = router;

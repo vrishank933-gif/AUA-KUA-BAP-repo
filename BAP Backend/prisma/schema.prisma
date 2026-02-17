@@ -1,5 +1,3 @@
-// prisma/schema.prisma
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,3 +6,167 @@ datasource db {
   provider = "postgresql"
 }
 
+model applicant_asa_declaration {
+  id                           BigInt    @id @default(autoincrement())
+  userid                       String
+  declaration_asa              String?
+  declaration_asa_documentpath String?
+  record_created_on            DateTime  @default(now()) @db.Timestamp(6)
+  record_updated_on            DateTime? @db.Timestamp(6)
+  record_created_by            String    @db.VarChar(100)
+  record_updated_by            String?   @db.VarChar(100)
+  record_status                String    @default("C") @db.Char(1)
+}
+
+model applicant_asa_name {
+  id                BigInt    @id @default(autoincrement())
+  userid            String
+  name_asa          String?   @db.VarChar(200)
+  record_created_on DateTime  @default(now()) @db.Timestamp(6)
+  record_updated_on DateTime? @db.Timestamp(6)
+  record_created_by String    @db.VarChar(100)
+  record_updated_by String?   @db.VarChar(100)
+  record_status     String    @default("C") @db.Char(1)
+}
+
+model applicant_authentication_details {
+  id                                            BigInt    @id @default(autoincrement())
+  userid                                        String
+  territorial_use_auth_facility                 String?   @db.VarChar(100)
+  territorial_use_auth_facility_value           String?   @db.VarChar(200)
+  auth_financial_transaction                    Boolean?
+  device_form_factor                            String?   @db.VarChar(100)
+  auth_assist_user                              String?   @db.VarChar(100)
+  mode_of_authentication                        String?   @db.VarChar(100)
+  connectivity_support                          String?   @db.VarChar(100)
+  connectivity_support_value                    String?   @db.VarChar(100)
+  applicant_conf_uidai_info_policy              Boolean?
+  applicant_conf_uidai_info_policy_documentpath String?
+  applicant_conf_uidai_model_doc                Boolean?
+  applicant_conf_uidai_model_doc_documentpath   String?
+  record_created_on                             DateTime  @default(now()) @db.Timestamp(6)
+  record_updated_on                             DateTime? @db.Timestamp(6)
+  record_created_by                             String    @db.VarChar(100)
+  record_updated_by                             String?   @db.VarChar(100)
+  record_status                                 String    @default("C") @db.Char(1)
+}
+
+model applicant_declaration_understandings {
+  id                                     BigInt    @id @default(autoincrement())
+  userid                                 String
+  declaration_understanding_documentpath String?
+  record_created_on                      DateTime  @default(now()) @db.Timestamp(6)
+  record_updated_on                      DateTime? @db.Timestamp(6)
+  record_created_by                      String    @db.VarChar(100)
+  record_updated_by                      String?   @db.VarChar(100)
+  record_status                          String    @default("C") @db.Char(1)
+}
+
+model applicant_details {
+  id                             BigInt    @id @default(autoincrement())
+  userid                         String
+  name_of_applicant              String
+  reg_incorporation              String?   @db.VarChar(200)
+  reg_incorporation_documentpath String?
+  license_no                     String?   @db.VarChar(200)
+  license_no_documentpath        String?
+  reg_office_address             String?
+  corr_office_address            String?
+  gstn_reg_no                    String?   @db.VarChar(200)
+  gstn_reg_no_documentpath       String?
+  tax_tan                        String?   @db.VarChar(200)
+  tax_tan_documentpath           String?
+  aadhar_auth_aua                Boolean?
+  aadhar_auth_aua_kua            Boolean?
+  board_resolution               String?
+  board_resolution_documentpath  String?
+  provision_aadhar               String?
+  provision_aadhar_documentpath  String?
+  category_applicant             String?   @db.VarChar(100)
+  category_applicant_values      String?
+  record_created_on              DateTime  @default(now()) @db.Timestamp(6)
+  record_updated_on              DateTime? @db.Timestamp(6)
+  record_created_by              String    @db.VarChar(100)
+  record_updated_by              String?   @db.VarChar(100)
+  record_status                  String    @default("C") @db.Char(1)
+}
+
+model contact_details {
+  id                                    BigInt    @id @default(autoincrement())
+  userid                                String
+  mpoc_name                             String?   @db.VarChar(100)
+  mpoc_full_designation                 String?   @db.VarChar(100)
+  mpoc_email_address                    String?   @db.VarChar(100)
+  mpoc_mobile_number                    String?   @db.VarChar(15)
+  mpoc_telephone_number                 String?   @db.VarChar(15)
+  person_authorised_name                String?   @db.VarChar(100)
+  person_authorised_full_designation    String?   @db.VarChar(100)
+  person_authorised_email_address       String?   @db.VarChar(100)
+  person_authorised_mobile_number       String?   @db.VarChar(15)
+  person_authorised_telephone_number    String?   @db.VarChar(15)
+  personnel_name                        String?   @db.VarChar(100)
+  personnel_full_designation            String?   @db.VarChar(100)
+  personnel_email_address               String?   @db.VarChar(100)
+  personnel_mobile_number               String?   @db.VarChar(15)
+  personnel_telephone_number            String?   @db.VarChar(15)
+  tpoc_name                             String?   @db.VarChar(100)
+  tpoc_full_designation                 String?   @db.VarChar(100)
+  tpoc_email_address                    String?   @db.VarChar(100)
+  tpoc_mobile_number                    String?   @db.VarChar(15)
+  tpoc_telephone_number                 String?   @db.VarChar(15)
+  cxo_name                              String?   @db.VarChar(100)
+  cxo_full_designation                  String?   @db.VarChar(100)
+  cxo_email_address                     String?   @db.VarChar(100)
+  cxo_mobile_number                     String?   @db.VarChar(15)
+  cxo_telephone_number                  String?   @db.VarChar(15)
+  other_personnel_name                  String?   @db.VarChar(100)
+  other_personnel_full_designation      String?   @db.VarChar(100)
+  other_personnel_email_address         String?   @db.VarChar(100)
+  other_personnel_mobile_number         String?   @db.VarChar(15)
+  other_personnel_telephone_number      String?   @db.VarChar(15)
+  infrastructure_details_mpoc_tpoc_name String?   @db.VarChar(100)
+  infrastructure_details_email_address  String?   @db.VarChar(100)
+  infrastructure_details_mobile_no      String?   @db.VarChar(15)
+  infrastructure_details_address        String?   @db.VarChar(100)
+  infrastructure_details_district       String?   @db.VarChar(100)
+  infrastructure_details_state          String?   @db.VarChar(100)
+  infrastructure_details_pin_code       String?   @db.VarChar(20)
+  data_centre_mpoc_tpoc_name            String?   @db.VarChar(100)
+  data_centre_email_address             String?   @db.VarChar(100)
+  data_centre_mobile_number             String?   @db.VarChar(15)
+  data_centre_address                   String?   @db.VarChar(100)
+  data_centre_district                  String?   @db.VarChar(100)
+  data_centre_state                     String?   @db.VarChar(100)
+  data_centre_pin_code                  String?   @db.VarChar(20)
+  data_recovery_centre_mpoc_tpoc_name   String?   @db.VarChar(100)
+  data_recovery_centre_email_address    String?   @db.VarChar(100)
+  data_recovery_centre_mobile_number    String?   @db.VarChar(15)
+  data_recovery_centre_address          String?   @db.VarChar(100)
+  data_recovery_centre_district         String?   @db.VarChar(100)
+  data_recovery_centre_state            String?   @db.VarChar(100)
+  data_recovery_centre_pin_code         String?   @db.VarChar(20)
+  grievance_redressal_websiteurl        String?   @db.VarChar(100)
+  grievance_redressal_email_address     String?   @db.VarChar(100)
+  grievance_redressal_helpdesk_number   String?   @db.VarChar(100)
+  record_created_on                     DateTime  @default(now()) @db.Timestamp(6)
+  record_updated_on                     DateTime? @db.Timestamp(6)
+  record_created_by                     String    @db.VarChar(100)
+  record_updated_by                     String?   @db.VarChar(100)
+  record_status                         String    @default("C") @db.Char(1)
+}
+
+model master_users {
+  userid            String    @id @default(dbgenerated("('U2026'::text || lpad((nextval('master_users_seq'::regclass))::text, 4, '0'::text))"))
+  name_of_applicant String
+  userrolecode      Int
+  email             String
+  password          String
+  recordcreatedon   DateTime? @default(now()) @db.Timestamp(6)
+}
+
+model user_roles {
+  id             Int     @id @default(autoincrement())
+  user_role      String
+  user_role_code Int
+  is_active      String? @db.Char(1)
+}
