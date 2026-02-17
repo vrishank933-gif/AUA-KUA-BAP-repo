@@ -1,0 +1,41 @@
+.register-wrapper {
+  background: #f4f6f8;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ 
+.register-card {
+  width: 400px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 6px;
+}
+ 
+.register-card input,
+.register-card select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 8px;
+}
+ 
+.register-card button {
+  width: 100%;
+  padding: 10px;
+  background: #0056b3;
+  color: white;
+  border: none;
+  margin-top: 10px;
+}
+ 
+.error-text {
+  color: #d93025;
+  font-size: 12px;
+}
+ 
+.success-text {
+  color: green;
+  text-align: center;
+  margin-top: 12px;
+}

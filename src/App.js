@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from "react";
+import Login from "./pages/login";
+import Register from "./pages/Register";
+import ApplicationForm from "./pages/Application";
+ 
 function App() {
+  const [page, setPage] = useState("login");
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {page === "login" && <Login />}
+      {page === "register" && <Register />}
+      {page === "application" && <ApplicationForm />}
+ 
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
+        {page === "login" && (
+          <button onClick={() => setPage("register")}>
+            Go to Register
+          </button>
+        )}
+ 
+        {page === "register" && (
+          <button onClick={() => setPage("login")}>
+            Go to Login
+          </button>
+        )}
+ 
+        {page === "login" && (
+          <button onClick={() => setPage("application")}>
+            Go to Application Form
+          </button>
+        )}
+      </div>
+    </>
   );
 }
-
+ 
 export default App;
