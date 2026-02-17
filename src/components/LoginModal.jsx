@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { validateEmail, validatePassword } from "../utils/validators";
 import "../styles/login.css";
 
-const LoginModal = ({ closeModal }) => {
+const LoginModal = ({ onClose, openRegister }) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -51,7 +51,7 @@ const LoginModal = ({ closeModal }) => {
       setSuccessMessage("Login successful");
 
       setTimeout(() => {
-        closeModal();
+        onClose();
         navigate("/application");
       }, 1000);
 
@@ -61,12 +61,12 @@ const LoginModal = ({ closeModal }) => {
   };
 
   return (
-    <div className="modal-overlay" onClick={closeModal}>
+    <div className="modal-overlay" onClick={onClose}>
       <div
         className="login-card"
-        onClick={(e) => e.stopPropagation()}  // Prevent closing when clicking inside
+        onClick={(e) => e.stopPropagation()}
       >
-        <span className="close-btn" onClick={closeModal}>
+        <span className="close-btn" onClick={onClose}>
           ×
         </span>
 
@@ -106,9 +106,19 @@ const LoginModal = ({ closeModal }) => {
         </form>
 
         <div className="login-links">
-          <Link to="/">Forgot Password?</Link>
+          <span style={{ cursor: "pointer" }}>
+            Forgot Password?
+          </span>
           <span> | </span>
-          <Link to="/register">New User? Register</Link>
+          <span
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              onClose();
+              openRegister();
+            }}
+          >
+            New User? Register
+          </span>
         </div>
       </div>
     </div>

@@ -1,90 +1,146 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LoginModal from "../components/LoginModal";
+import Register from "../components/Register";
 import "../styles/landing.css";
 
 const Landing = () => {
   const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+
+  const openLogin = () => {
+    setShowRegister(false);
+    setShowLogin(true);
+  };
+
+  const openRegister = () => {
+    setShowLogin(false);
+    setShowRegister(true);
+  };
+
+  useEffect(() => {
+    if (showLogin || showRegister) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [showLogin, showRegister]);
 
   return (
     <div className="landing-container">
 
+      {/* HEADER */}
       <header className="landing-header">
+        <div className="header-container">
 
-  <div className="header-left">
+          <div className="header-left">
+            <img
+              src="/aadhar_logo.png"
+              alt="Aadhar Logo"
+              className="aadhar_logo"
+            />
+            <div className="logo-text">
+              <span className="gov-small">
+                Unique Identification Authority of India
+              </span>
+              <span className="portal-title">
+                AUA / KUA Authentication Onboarding Portal
+              </span>
+            </div>
+          </div>
 
-    <img
-      src="/aadhar-logo.jpg"
-      alt="Aadhar Logo"
-      className="aadhar-logo"
-    />
+          <nav className="header-nav">
+            <a href="#">Home</a>
+            <a href="#">About Us</a>
+            <a href="#">Onboarding Process</a>
+            <a href="#">Guidelines</a>
+            <a href="#">Helpdesk</a>
+          </nav>
 
-    <div className="logo-text">
-      <span className="gov-small">
-        Unique Identification Authority of India
-      </span>
-      <span className="portal-title">
-        AUA / KUA Authentication Onboarding Portal
-      </span>
-    </div>
+          {/* 🔥 UPDATED HEADER RIGHT */}
+          <div className="header-right">
 
-  </div>
+            <button
+              className="register-btn"
+              onClick={openRegister}
+            >
+              Register
+            </button>
 
-  <button
-    className="login-btn"
-    onClick={() => setShowLogin(true)}
-  >
-    Login
-  </button>
+            <button
+              className="login-btn"
+              onClick={openLogin}
+            >
+              Login
+            </button>
 
-</header>
+          </div>
 
-{/* Hero Section */}
-<section className="hero-section">
+        </div>
+      </header>
 
-  <div className="hero-left">
-    <div className="fingerprint-system">
+      {/* HERO */}
+      <section className="hero-section">
 
-      <img
-        src="/auth-illustration.svg"
-        alt="Authentication Illustration"
-        className="hero-image"
-      />
+        <div className="hero-left">
+          <img
+            src="/auth-illustration1.png"
+            alt="AUA KUA Secure Authentication System"
+            className="hero-image"
+          />
+        </div>
 
-      {/* Radial System Labels */}
-      <span className="system-label top">Authentication</span>
-      <span className="system-label top-right">Integration</span>
-      <span className="system-label bottom-right">Security</span>
-      <span className="system-label bottom">Compliance</span>
-      <span className="system-label top-left">Onboarding</span>
+        <div className="hero-content">
+          <h1>
+            AUA / KUA Authentication
+            <br />
+            Onboarding Portal
+          </h1>
 
-    </div>
-  </div>
+          <p>
+            Secure onboarding for Authentication User Agencies (AUA)
+            and e-KYC User Agencies (KUA) under the Aadhaar Act, 2016.
+          </p>
 
-  <div className="hero-content">
-    <h1>
-      AUA / KUA Authentication
-      <br />
-      Onboarding Portal
-    </h1>
+          <button
+            className="primary-btn"
+            onClick={openLogin}
+          >
+            Login
+          </button>
+        </div>
 
-    <p>
-      Secure onboarding for Authentication User Agencies (AUA)
-      and e-KYC User Agencies (KUA) under the Aadhaar Act, 2016.
-    </p>
+      </section>
 
-    <button
-      className="primary-btn"
-      onClick={() => setShowLogin(true)}
-    >
-      Login
-    </button>
-  </div>
+      {/* LOGIN MODAL */}
+      {showLogin && (
+        <LoginModal
+          onClose={() => setShowLogin(false)}
+          openRegister={openRegister}
+        />
+      )}
 
-</section>
+      {/* REGISTER MODAL */}
+      {showRegister && (
+        <Register
+          onClose={() => setShowRegister(false)}
+        />
+      )}
 
+      {/* FOOTER */}
+      <footer className="landing-footer">
+        <div className="footer-content">
+          <div className="footer-left">
+            © {new Date().getFullYear()} UIDAI
+          </div>
 
-      {showLogin && <LoginModal closeModal={() => setShowLogin(false)} />}
+          <div className="footer-right">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">Contact Us</a>
+          </div>
+        </div>
+      </footer>
+
     </div>
   );
 };
