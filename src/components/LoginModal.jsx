@@ -52,7 +52,7 @@ const LoginModal = ({ onClose, openRegister }) => {
 
       setTimeout(() => {
         onClose();
-        navigate("/application");
+        navigate("/dashboard");
       }, 1000);
 
     } catch (error) {
