@@ -33,50 +33,65 @@ const ApplicationForm = () => {
 
 
         // ===== Step 2 – MPOC =====
-        mpocName: "",
-        mpocDesignation: "",
-        mpocEmail: "",
-        mpocMobile: "",
-        mpocAltPhone: "",
-        mpocOtherName: "",
-        mpocOtherDesignation: "",
-        mpocOtherEmail: "",
-        mpocOtherMobile: "",
-        mpocOtherAltPhone: "",
+        mpoc_name: "",
+        mpoc_full_designation: "",
+        mpoc_email_address: "",
+        mpoc_mobile_number: "",
+        mpoc_telephone_number: "",
+        person_authorised_name: "",
+        person_authorised_full_designation: "",
+        person_authorised_email_address: "",
+        person_authorised_mobile_number: "",
+        person_authorised_telephone_number: "",
+        personnel_name: "",
+        personnel_full_designation: "",
+        personnel_email_address: "",
+        personnel_mobile_number: "",
+        personnel_telephone_number: "",
 
         // ===== Step 2 – TPOC =====
-        tpocName: "",
-        tpocDesignation: "",
-        tpocEmail: "",
-        tpocMobile: "",
-        tpocAltPhone: "",
-        tpocOtherName: "",
-        tpocOtherDesignation: "",
-        tpocOtherEmail: "",
-        tpocOtherMobile: "",
-        tpocOtherAltPhone: "",
+        tpoc_name: "",
+        tpoc_full_designation: "",
+        tpoc_email_address: "",
+        tpoc_mobile_number: "",
+        tpoc_telephone_number: "",
+        cxo_name:"",
+        cxo_full_designation:"",
+        cxo_email_address:"",
+        cxo_mobile_number:"",
+        cxo_telephone_number:"",
+        other_personnel_name: "",
+        other_personnel_full_designation: "",
+        other_personnel_email_address: "",
+        other_personnel_mobile_number: "",
+        other_personnel_telephone_number: "",
 
         // ===== Step 2 – DC (Data Centre) =====
-        dcName: "",
-        dcEmail: "",
-        dcPhone: "",
-        dcAddress: "",
-        dcDistrict: "",
-        dcState: "",
-        dcPin: "",
+        data_centre_mpoc_tpoc_name: "",
+        data_centre_email_address: "",
+        data_centre_mobile_number:"",
+        data_centre_address:"",
+        data_centre_district: "",
+        data_centre_state: "",
+        data_centre_pin_code: "",
 
         // ===== Step 2 – DR (Data Recovery Centre) =====
-        drName: "",
-        drEmail: "",
-        drPhone: "",
-        drAddress: "",
-        drDistrict: "",
-        drState: "",
-        drPin: "",
+        data_recovery_centre_mpoc_tpoc_name: "",
+        data_recovery_centre_email_address: "",
+        data_recovery_centre_mobile_number: "",
+        data_recovery_centre_address: "",
+        data_recovery_centre_district: "",
+        data_recovery_centre_state: "",
+        data_recovery_centre_pin_code: "",
+
+        //====Grievance====//
+        grievance_redressal_websiteurl:"",
+        grievance_redressal_email_address:"",
+        grievance_redressal_helpdesk_number:"",
 
         // ===== Step 3 =====
-        asaNames: [""],
-        asaDeclarationAccepted: false,
+        name_asa: [""],
+        
         asaLetter: null,
 
 
@@ -199,29 +214,53 @@ const ApplicationForm = () => {
             const urlRegex = /^(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w\-.]*)*\/?$/;
 
             // ===== MPOC =====
-            if (!formData.mpocName)
-                newErrors.mpocName = "MPOC Name required";
-            if (!formData.mpocDesignation)
-                newErrors.mpocDesignation = "Full designation required";
-            if (!emailRegex.test(formData.mpocEmail))
-                newErrors.mpocEmail = "Valid official email required";
-            if (!mobileRegex.test(formData.mpocMobile))
-                newErrors.mpocMobile = "Valid 10-digit mobile required";
-            if (formData.mpocAltPhone && !mobileRegex.test(formData.mpocAltPhone))
-                newErrors.mpocAltPhone = "Invalid alternate phone";
+            if (!formData.mpoc_name)
+                newErrors.mpoc_name = "MPOC Name required";
+            if (!formData.mpoc_full_designation)
+                newErrors.mpoc_full_designation = "Full designation required";
+            if (!emailRegex.test(formData.mpoc_email_address))
+                newErrors.mpoc_email_address = "Valid official email required";
+            if (!mobileRegex.test(formData.mpoc_mobile_number))
+                newErrors.mpoc_mobile_number = "Valid 10-digit mobile required";
+            if (formData.mpoc_telephone_number && !mobileRegex.test(formData.mpoc_telephone_number))
+                newErrors.mpoc_telephone_number = "Invalid alternate phone";
 
+            if (!formData.person_authorised_name)
+                newErrors.person_authorised_name = "MPOC Name required";
+            if (!formData.person_authorised_full_designation)
+                newErrors.person_authorised_full_designation = "Full designation required";
+            if (!emailRegex.test(formData.person_authorised_email_address))
+                newErrors.person_authorised_email_address = "Valid official email required";
+            if (!mobileRegex.test(formData.person_authorised_mobile_number))
+                newErrors.person_authorised_mobile_number = "Valid 10-digit mobile required";
+            if (formData.person_authorised_telephone_number && !mobileRegex.test(formData.person_authorised_telephone_number))
+                newErrors.person_authorised_telephone_number = "Invalid alternate phone";
+           
             // ===== TPOC =====
-            if (!formData.tpocName)
-                newErrors.tpocName = "TPOC Name required";
-            if (!formData.tpocDesignation)
-                newErrors.tpocDesignation = "Full designation required";
-            if (!emailRegex.test(formData.tpocEmail))
-                newErrors.tpocEmail = "Valid official email required";
-            if (!mobileRegex.test(formData.tpocMobile))
-                newErrors.tpocMobile = "Valid 10-digit mobile required";
-            if (formData.tpocAltPhone && !mobileRegex.test(formData.tpocAltPhone))
-                newErrors.tpocAltPhone = "Invalid alternate phone";
+            if (!formData.tpoc_name)
+                newErrors.tpoc_name = "TPOC Name required";
+            if (!formData.tpoc_full_designation)
+                newErrors.tpoc_full_designation = "Full designation required";
+            if (!emailRegex.test(formData.tpoc_email_address))
+                newErrors.tpoc_email_address = "Valid official email required";
+            if (!mobileRegex.test(formData.tpoc_mobile_number))
+                newErrors.tpoc_mobile_number = "Valid 10-digit mobile required";
+            if (formData.tpoc_telephone_number && !mobileRegex.test(formData.tpoc_telephone_number))
+                newErrors.tpoc_telephone_number = "Invalid alternate phone";
 
+            if (!formData.cxo_name)
+                newErrors.cxo_name = "TPOC Name required";
+            if (!formData.tpoc_full_designation)
+                newErrors.tpoc_full_designation = "Full designation required";
+            if (!emailRegex.test(formData.tpoc_email_address))
+                newErrors.tpoc_email_address = "Valid official email required";
+            if (!mobileRegex.test(formData.tpoc_mobile_number))
+                newErrors.tpoc_mobile_number = "Valid 10-digit mobile required";
+            if (formData.tpoc_telephone_number && !mobileRegex.test(formData.tpoc_telephone_number))
+                newErrors.tpoc_telephone_number = "Invalid alternate phone";
+            
+            
+            
             // ===== DC =====
             if (!formData.dcName)
                 newErrors.dcName = "DC contact name required";
@@ -529,7 +568,7 @@ const ApplicationForm = () => {
                                 <h4 className="section-title">Management Point of Contact (MPOC)</h4>
                                 <h5>Authorised Person (Board Resolution / Authorisation Letter)</h5>
 
-                                <div className="form-grid">
+                                <div className="grid">
                                     <div>
                                         <label>MPOC Name <span>*</span></label>
                                         <input name="mpocName" placeholder="Name"
@@ -571,6 +610,30 @@ const ApplicationForm = () => {
                                     </div>
                                 </div>
 
+                                <h5>Authorised Person Details</h5>
+                                <div className="grid">
+                                    <div>
+                                        <label>Person Name<span>*</span></label>
+                                        <input name="mpocOtherName" placeholder="Name" onChange={handleChange} />
+                                    </div>
+                                    <div>
+                                        <label>Person Full designation<span>*</span></label>
+                                        <input name="mpocOtherDesignation" placeholder="Full Designation" onChange={handleChange} />
+                                    </div>
+                                    <div>
+                                        <label>Person Official Email Address <span>*</span></label>
+                                        <input name="mpocOtherEmail" placeholder="Official Email Address" onChange={handleChange} />
+                                    </div>
+                                    <div>
+                                        <label>Person Mobile Number <span>*</span></label>
+                                        <input name="mpocOtherMobile" placeholder="Mobile Number" onChange={handleChange} />
+                                    </div>
+                                    <div>
+                                        <label>Person Alternate Office/Telephone Number<span>*</span></label>
+                                        <input name="mpocOtherAltPhone" placeholder="Alternate Office/Telephone Number" onChange={handleChange} />
+                                    </div>
+                                </div>
+
                                 <h5>Other Key Personnel (If Any)</h5>
                                 <div className="grid">
                                     <div>
@@ -600,7 +663,7 @@ const ApplicationForm = () => {
                             <div className="form-card">
                                 <h4 className="section-title">Technical Point of Contact (TPOC)</h4>
 
-                                <div className="form-grid">
+                                <div className="grid">
                                     <div>
                                         <label>TPOC Name<span>*</span></label>
                                         <input name="tpocName" placeholder="Name"
@@ -642,6 +705,30 @@ const ApplicationForm = () => {
                                     </div>
                                 </div>
 
+                                <h5>CXO Head Details</h5>
+                                <div className="grid">
+                                    <div>
+                                        <label>Person Name<span>*</span></label>
+                                        <input name="tpocOtherName" placeholder="Name" onChange={handleChange} />
+                                    </div>
+                                    <div>
+                                        <label>Person Full designation<span>*</span></label>
+                                        <input name="tpocOtherDesignation" placeholder="Full Designation" onChange={handleChange} />
+                                    </div>
+                                    <div>
+                                        <label>Person Email Address<span>*</span></label>
+                                        <input name="tpocOtherEmail" placeholder="Official Email Address" onChange={handleChange} />
+                                    </div>
+                                    <div>
+                                        <label>Person Mobile Number <span>*</span></label>
+                                        <input name="tpocOtherMobile" placeholder="Mobile Number" onChange={handleChange} />
+                                    </div>
+                                    <div>
+                                        <label>Person Alternate Office/Telephone Number <span>*</span></label>
+                                        <input name="tpocOtherAltPhone" placeholder="Alternate Office/Telephone Number" onChange={handleChange} />
+                                    </div>
+                                </div>
+
                                 <h5>Other Key Personnel (If Any)</h5>
                                 <div className="grid">
                                     <div>
@@ -670,7 +757,7 @@ const ApplicationForm = () => {
                             {/* ===== DC ===== */}
                             <div className="form-card">
                                 <h4 className="section-title">DC (Data Centre)</h4>
-                                <div className="form-grid">
+                                <div className="grid">
                                     <div>
                                         <label>DC Name <span>*</span></label>
                                         <input name="dcName" placeholder="MPOC/TPOC Name"
@@ -732,7 +819,7 @@ const ApplicationForm = () => {
                             {/* ===== DR ===== */}
                             <div className="form-card">
                                 <h4 className="section-title">DR (Data Recovery Centre)</h4>
-                                <div className="form-grid">
+                                <div className="grid">
                                     <div>
                                         <label>DR Name<span>*</span></label>
                                         <input name="drName" placeholder="MPOC/TPOC Name"
@@ -794,7 +881,7 @@ const ApplicationForm = () => {
                             {/* ===== Grievance ===== */}
                             <div className="form-card">
                                 <h4 className="section-title">Contact Details for Grievance Redressal</h4>
-                                <div className="form-grid">
+                                <div className="grid">
                                     <div>
                                         <label>Website URL <span>*</span></label>
                                         <input name="grievanceWebsite" placeholder=""

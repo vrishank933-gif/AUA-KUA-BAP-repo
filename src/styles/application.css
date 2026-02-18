@@ -19,7 +19,7 @@ body {
   font-family: 'Inter', sans-serif;
   background: var(--color-bg);
   height: 100%;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 /* ===== LAYOUT ===== */
