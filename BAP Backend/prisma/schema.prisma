@@ -162,6 +162,7 @@ model master_users {
   email             String
   password          String
   recordcreatedon   DateTime? @default(now()) @db.Timestamp(6)
+  phone_number      String
 }
 
 model user_roles {
