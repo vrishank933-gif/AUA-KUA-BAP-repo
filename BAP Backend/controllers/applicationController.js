@@ -48,7 +48,6 @@ module.exports.submitApplication = async (req, res) => {
       aadhar_auth_aua,
       aadhar_auth_aua_kua,
       board_resolution,
-      provision_aadhar,
       category_applicant,
       category_applicant_values,
       record_updated_on,
@@ -68,10 +67,12 @@ module.exports.submitApplication = async (req, res) => {
     let contact_details_id = null;
     let authentication_details_id = null;
     let declaration_understandings_id = null;
+    let category_applicant_row_ids = [];
+    let provision_aadhar_row_ids = [];
 
     const result = await prisma.$transaction(async (tx) => {
       const exist = await tx.applicant_details.findFirst({
-        where: { userid: userid },
+        where: { userid },
         select: { id: true },
       });
       if (exist) {
@@ -98,10 +99,8 @@ module.exports.submitApplication = async (req, res) => {
           aadhar_auth_aua_kua: aadhar_auth_aua_kua_bool,
           board_resolution: board_resolution || null,
           board_resolution_documentpath: board_resolution_documentpath || null,
-          provision_aadhar: provision_aadhar || null,
           provision_aadhar_documentpath: provision_aadhar_documentpath || null,
           category_applicant: category_applicant || null,
-          category_applicant_values: category_applicant_values || null,
           record_updated_on: record_updated_on || null,
           record_created_by,
           record_updated_by: record_updated_by || null,
@@ -229,11 +228,9 @@ module.exports.submitApplication = async (req, res) => {
           connectivity_support: req.body.connectivity_support || null,
           connectivity_support_value: req.body.connectivity_support_value || null,
           applicant_conf_uidai_info_policy: applicant_conf_uidai_info_policy_bool,
-          applicant_conf_uidai_info_policy_documentpath:
-            applicant_conf_uidai_info_policy_documentpath || null,
+          applicant_conf_uidai_info_policy_documentpath: applicant_conf_uidai_info_policy_documentpath || null,
           applicant_conf_uidai_model_doc: applicant_conf_uidai_model_doc_bool,
-          applicant_conf_uidai_model_doc_documentpath:
-            applicant_conf_uidai_model_doc_documentpath || null,
+          applicant_conf_uidai_model_doc_documentpath: applicant_conf_uidai_model_doc_documentpath || null,
           record_updated_on: req.body.record_updated_on || null,
           record_created_by,
           record_updated_by: req.body.record_updated_by || null,
@@ -258,6 +255,45 @@ module.exports.submitApplication = async (req, res) => {
         declaration_understandings_id = String(insDU.id);
       }
 
+      const categoryValues = Array.isArray(category_applicant_values)
+        ? category_applicant_values
+        : (category_applicant_values ? [category_applicant_values] : []);
+      for (const val of categoryValues) {
+        if (val == null || val === '') continue;
+        const insCat = await tx.applicant_details_category_applicant.create({
+          data: {
+            userid,
+            category_applicant_values: val,
+            record_updated_on: req.body.record_updated_on || null,
+            record_created_by,
+            record_updated_by: req.body.record_updated_by || null,
+            record_status: req.body.record_status || 'C',
+          },
+          select: { id: true },
+        });
+        category_applicant_row_ids.push(String(insCat.id));
+      }
+
+      const provisionAadharInput = req.body.provision_aadhar;
+      const provisionVals = Array.isArray(provisionAadharInput)
+        ? provisionAadharInput
+        : (provisionAadharInput ? [provisionAadharInput] : []);
+      for (const val of provisionVals) {
+        if (val == null || val === '') continue;
+        const insProv = await tx.applicant_details_provision_aadhar.create({
+          data: {
+            userid,
+            provision_aadhar: val,
+            record_updated_on: req.body.record_updated_on || null,
+            record_created_by,
+            record_updated_by: req.body.record_updated_by || null,
+            record_status: req.body.record_status || 'C',
+          },
+          select: { id: true },
+        });
+        provision_aadhar_row_ids.push(String(insProv.id));
+      }
+
       return {
         applicant_details_id,
         contact_details_id,
@@ -265,6 +301,8 @@ module.exports.submitApplication = async (req, res) => {
         asa_declaration_id,
         authentication_details_id,
         declaration_understandings_id,
+        category_applicant_row_ids,
+        provision_aadhar_row_ids,
       };
     });
 
@@ -276,6 +314,8 @@ module.exports.submitApplication = async (req, res) => {
       asa_declaration_id: result.asa_declaration_id,
       authentication_details_id: result.authentication_details_id,
       declaration_understandings_id: result.declaration_understandings_id,
+      category_applicant_row_ids: result.category_applicant_row_ids,
+      provision_aadhar_row_ids: result.provision_aadhar_row_ids,
     });
   } catch (err) {
     if (err?.code === 'DUPLICATE') {
@@ -285,7 +325,6 @@ module.exports.submitApplication = async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
-
 
 module.exports.getApplication = async (req, res) => {
   try {
@@ -299,6 +338,8 @@ module.exports.getApplication = async (req, res) => {
       applicant_asa_declaration,
       applicant_authentication_details,
       applicant_declaration_understandings,
+      applicant_details_category_applicant,
+      applicant_details_provision_aadhar,
     ] = await Promise.all([
       prisma.applicant_details.findFirst({
         where: { userid },
@@ -324,10 +365,21 @@ module.exports.getApplication = async (req, res) => {
         where: { userid },
         orderBy: { id: 'desc' },
       }),
+      prisma.applicant_details_category_applicant.findMany({
+        where: { userid },
+        orderBy: { id: 'asc' },
+      }),
+        prisma.applicant_details_provision_aadhar.findMany({
+        where: { userid },
+        orderBy: { id: 'asc' },
+      }),
+
     ]);
 
     const data = {
       applicant_details,
+      applicant_details_category_applicant,
+      applicant_details_provision_aadhar,
       contact_details,
       applicant_asa_name,
       applicant_asa_declaration,
@@ -341,8 +393,9 @@ module.exports.getApplication = async (req, res) => {
       (data.applicant_asa_name && data.applicant_asa_name.length > 0) ||
       data.applicant_asa_declaration ||
       data.applicant_authentication_details ||
-      data.applicant_declaration_understandings;
-
+      data.applicant_declaration_understandings ||
+      data.applicant_details_category_applicant ||
+      data.applicant_details_provision_aadhar;
     if (!hasAny) {
       return res.status(404).json({ error: 'No application found for this user' });
     }
@@ -403,38 +456,13 @@ module.exports.updateApplication = async (req, res) => {
       return res.status(404).json({ error: 'No application found for this user' });
     }
 
-
     const result = await prisma.$transaction(async (tx) => {
-      const reg_incorporation_documentpath   = getFilePath(req, 'reg_incorporation_documentpath');
-      const license_no_documentpath          = getFilePath(req, 'license_no_documentpath');
-      const gstn_reg_no_documentpath         = getFilePath(req, 'gstn_reg_no_documentpath');
-      const tax_tan_documentpath             = getFilePath(req, 'tax_tan_documentpath');
-      const board_resolution_documentpath    = getFilePath(req, 'board_resolution_documentpath');
-      const provision_aadhar_documentpath    = getFilePath(req, 'provision_aadhar_documentpath');
-
-      const applicantDetailsAllowed = [
-        'reg_incorporation',
-        'reg_incorporation_documentpath',
-        'license_no',
-        'license_no_documentpath',
-        'reg_office_address',
-        'corr_office_address',
-        'gstn_reg_no',
-        'gstn_reg_no_documentpath',
-        'tax_tan',
-        'tax_tan_documentpath',
-        'aadhar_auth_aua',
-        'aadhar_auth_aua_kua',
-        'board_resolution',
-        'board_resolution_documentpath',
-        'provision_aadhar',
-        'provision_aadhar_documentpath',
-        'category_applicant',
-        'category_applicant_values',
-        'record_updated_on',
-        'record_updated_by',
-        'record_status',
-      ];
+      const reg_incorporation_documentpath = getFilePath(req, 'reg_incorporation_documentpath');
+      const license_no_documentpath = getFilePath(req, 'license_no_documentpath');
+      const gstn_reg_no_documentpath = getFilePath(req, 'gstn_reg_no_documentpath');
+      const tax_tan_documentpath = getFilePath(req, 'tax_tan_documentpath');
+      const board_resolution_documentpath = getFilePath(req, 'board_resolution_documentpath');
+      const provision_aadhar_documentpath = getFilePath(req, 'provision_aadhar_documentpath');
 
       const applicantProvided = {};
       for (const k of [
@@ -445,9 +473,7 @@ module.exports.updateApplication = async (req, res) => {
         'gstn_reg_no',
         'tax_tan',
         'board_resolution',
-        'provision_aadhar',
         'category_applicant',
-        'category_applicant_values',
         'record_updated_on',
         'record_updated_by',
         'record_status',
@@ -470,7 +496,7 @@ module.exports.updateApplication = async (req, res) => {
       let applicant_details_id = existingApplicant.id;
       if (Object.keys(applicantProvided).length > 0) {
         const updated = await tx.applicant_details.update({
-          where: { id: existingApplicant.id }, 
+          where: { id: existingApplicant.id },
           data: applicantProvided,
           select: { id: true }
         });
@@ -530,12 +556,10 @@ module.exports.updateApplication = async (req, res) => {
         }
       }
 
-
       let asa_name_ids = [];
       const nameAsaInput = req.body.name_asa;
       if (typeof nameAsaInput !== 'undefined') {
         await tx.applicant_asa_name.deleteMany({ where: { userid } });
-
         const names = Array.isArray(nameAsaInput) ? nameAsaInput : [nameAsaInput];
         for (const name_asa of names) {
           const value = normalize(name_asa);
@@ -560,7 +584,6 @@ module.exports.updateApplication = async (req, res) => {
         });
         asa_name_ids = existingNames.map(r => r.id);
       }
-
 
       const declaration_asa_documentpath = getFilePath(req, 'declaration_asa_documentpath');
       const declaration_asa_provided = hasProp(req.body, 'declaration_asa') || !!declaration_asa_documentpath;
@@ -609,27 +632,8 @@ module.exports.updateApplication = async (req, res) => {
         asa_declaration_id = decExisting?.id || null;
       }
 
-
       const applicant_conf_uidai_info_policy_documentpath = getFilePath(req, 'applicant_conf_uidai_info_policy_documentpath');
-      const applicant_conf_uidai_model_doc_documentpath   = getFilePath(req, 'applicant_conf_uidai_model_doc_documentpath');
-
-      const authAllowed = [
-        'territorial_use_auth_facility',
-        'territorial_use_auth_facility_value',
-        'auth_financial_transaction',
-        'device_form_factor',
-        'auth_assist_user',
-        'mode_of_authentication',
-        'connectivity_support',
-        'connectivity_support_value',
-        'applicant_conf_uidai_info_policy',
-        'applicant_conf_uidai_info_policy_documentpath',
-        'applicant_conf_uidai_model_doc',
-        'applicant_conf_uidai_model_doc_documentpath',
-        'record_updated_on',
-        'record_updated_by',
-        'record_status',
-      ];
+      const applicant_conf_uidai_model_doc_documentpath = getFilePath(req, 'applicant_conf_uidai_model_doc_documentpath');
 
       const authProvided = {};
       for (const k of [
@@ -691,14 +695,14 @@ module.exports.updateApplication = async (req, res) => {
         }
       }
 
-
       const declaration_understanding_documentpath = getFilePath(req, 'declaration_understanding_documentpath');
       let declaration_understandings_id = null;
 
       if (
         declaration_understanding_documentpath ||
         hasProp(req.body, 'record_updated_on') ||
-        hasProp(req.body, 'record_status')
+        hasProp(req.body, 'record_status') ||
+        hasProp(req.body, 'record_updated_by')
       ) {
         const existingDU = await tx.applicant_declaration_understandings.findFirst({ where: { userid } });
 
@@ -743,6 +747,64 @@ module.exports.updateApplication = async (req, res) => {
         declaration_understandings_id = duExisting?.id || null;
       }
 
+      let category_applicant_row_ids = [];
+      if (hasProp(req.body, 'category_applicant_values')) {
+        await tx.applicant_details_category_applicant.deleteMany({ where: { userid } });
+        const rawVals = req.body.category_applicant_values;
+        const values = Array.isArray(rawVals) ? rawVals : (rawVals ? [rawVals] : []);
+        for (const val of values) {
+          const v = normalize(val);
+          if (!v) continue;
+          const created = await tx.applicant_details_category_applicant.create({
+            data: {
+              userid,
+              category_applicant_values: v,
+              record_updated_on: normalize(req.body.record_updated_on),
+              record_created_by,
+              record_updated_by: normalize(req.body.record_updated_by),
+              record_status: normalize(req.body.record_status) || 'C',
+            },
+            select: { id: true }
+          });
+          category_applicant_row_ids.push(created.id);
+        }
+      } else {
+        const existingCats = await tx.applicant_details_category_applicant.findMany({
+          where: { userid },
+          select: { id: true }
+        });
+        category_applicant_row_ids = existingCats.map(r => r.id);
+      }
+
+      let provision_aadhar_row_ids = [];
+      if (hasProp(req.body, 'provision_aadhar')) {
+        await tx.applicant_details_provision_aadhar.deleteMany({ where: { userid } });
+        const rawVals = req.body.provision_aadhar;
+        const values = Array.isArray(rawVals) ? rawVals : (rawVals ? [rawVals] : []);
+        for (const val of values) {
+          const v = normalize(val);
+          if (!v) continue;
+          const created = await tx.applicant_details_provision_aadhar.create({
+            data: {
+              userid,
+              provision_aadhar: v,
+              record_updated_on: normalize(req.body.record_updated_on),
+              record_created_by,
+              record_updated_by: normalize(req.body.record_updated_by),
+              record_status: normalize(req.body.record_status) || 'C',
+            },
+            select: { id: true }
+          });
+          provision_aadhar_row_ids.push(created.id);
+        }
+      } else {
+        const existingProv = await tx.applicant_details_provision_aadhar.findMany({
+          where: { userid },
+          select: { id: true }
+        });
+        provision_aadhar_row_ids = existingProv.map(r => r.id);
+      }
+
       return {
         applicant_details_id,
         contact_details_id,
@@ -750,6 +812,8 @@ module.exports.updateApplication = async (req, res) => {
         asa_declaration_id,
         authentication_details_id,
         declaration_understandings_id,
+        category_applicant_row_ids,
+        provision_aadhar_row_ids,
       };
     });
 
@@ -762,6 +826,8 @@ module.exports.updateApplication = async (req, res) => {
       asa_declaration_id: safe(result.asa_declaration_id),
       authentication_details_id: safe(result.authentication_details_id),
       declaration_understandings_id: safe(result.declaration_understandings_id),
+      category_applicant_row_ids: Array.isArray(result.category_applicant_row_ids) ? result.category_applicant_row_ids.map(safe) : [],
+      provision_aadhar_row_ids: Array.isArray(result.provision_aadhar_row_ids) ? result.provision_aadhar_row_ids.map(safe) : [],
     });
 
   } catch (err) {
@@ -769,7 +835,6 @@ module.exports.updateApplication = async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
-
 
 module.exports.getStatus = async (req, res) => {
   try{

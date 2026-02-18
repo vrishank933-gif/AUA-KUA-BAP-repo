@@ -80,10 +80,8 @@ model applicant_details {
   aadhar_auth_aua_kua            Boolean?
   board_resolution               String?
   board_resolution_documentpath  String?
-  provision_aadhar               String?
   provision_aadhar_documentpath  String?
   category_applicant             String?   @db.VarChar(100)
-  category_applicant_values      String?
   record_created_on              DateTime  @default(now()) @db.Timestamp(6)
   record_updated_on              DateTime? @db.Timestamp(6)
   record_created_by              String    @db.VarChar(100)
@@ -170,4 +168,26 @@ model user_roles {
   user_role      String
   user_role_code Int
   is_active      String? @db.Char(1)
+}
+
+model applicant_details_category_applicant {
+  id                        BigInt    @id @default(autoincrement())
+  userid                    String
+  category_applicant_values String?
+  record_created_on         DateTime  @default(now()) @db.Timestamp(6)
+  record_updated_on         DateTime? @db.Timestamp(6)
+  record_created_by         String    @db.VarChar(100)
+  record_updated_by         String?   @db.VarChar(100)
+  record_status             String    @default("C") @db.Char(1)
+}
+
+model applicant_details_provision_aadhar {
+  id                BigInt    @id @default(autoincrement())
+  userid            String
+  provision_aadhar  String?
+  record_created_on DateTime  @default(now()) @db.Timestamp(6)
+  record_updated_on DateTime? @db.Timestamp(6)
+  record_created_by String    @db.VarChar(100)
+  record_updated_by String?   @db.VarChar(100)
+  record_status     String    @default("C") @db.Char(1)
 }
