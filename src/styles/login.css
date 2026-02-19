@@ -1,41 +1,52 @@
-/* ===== Overlay ===== */
+/* ================= OVERLAY ================= */
+
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.65);   /* 👈 Not too dark */
+  backdrop-filter: blur(4px);        /* 👈 Softer blur */
   display: flex;
-  align-items: center;
+  align-items: center;            /* ✅ Centered like register */
   justify-content: center;
   z-index: 999;
+  padding: 40px 20px;
+  animation: fadeOverlay 0.2s ease-out;
 }
 
-/* ===== Modal Card ===== */
+@keyframes fadeOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ================= MODAL CARD ================= */
+
 .login-card {
-  width: 420px;
-  max-width: 92%;
-  background: #ffffff;
-  border-radius: 14px;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
-  padding: 50px 45px;
+  width: 420px;                   /* ✅ Same width */
+  max-width: 95%;
+  background: #0f0f0f;
+  border-radius: 16px;            /* ✅ Match register */
+  padding: 55px 40px;             /* ✅ Same spacing */
+  border: 1px solid rgba(255, 230, 0, 0.15);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8); /* ✅ Clean shadow */
+  color: #ffffff;
   position: relative;
-  animation: zoomIn 0.25s ease-out;
-  font-family: "Segoe UI", sans-serif;
+  animation: fadeInScale 0.25s ease-out; /* ✅ Same animation */
 }
 
-/* ===== Smooth Zoom Animation ===== */
-@keyframes zoomIn {
+/* Animation */
+@keyframes fadeInScale {
   from {
-    transform: scale(0.95);
     opacity: 0;
+    transform: scale(0.97);
   }
   to {
-    transform: scale(1);
     opacity: 1;
+    transform: scale(1);
   }
 }
 
-/* ===== Close Button ===== */
+/* ================= CLOSE BUTTON ================= */
+
 .close-btn {
   position: absolute;
   top: 16px;
@@ -47,88 +58,106 @@
 }
 
 .close-btn:hover {
-  color: #000;
+  color: var(--color-primary);
 }
 
-/* ===== Heading ===== */
+/* ================= HEADING ================= */
+
 .login-card h2 {
   text-align: center;
-  color: #0B3D91;
-  font-size: 24px;
+  color: var(--color-primary);
+  font-size: 24px;         /* ✅ Match register */
   font-weight: 600;
-  margin-bottom: 35px;
+  margin-bottom: 36px;
+  letter-spacing: 0.4px;
 }
 
-/* ===== Inputs ===== */
+/* ================= INPUTS ================= */
+
 .login-card input {
   width: 100%;
-  padding: 14px 16px;
-  margin-bottom: 20px;
-  border: 1px solid #d0d7e2;
-  border-radius: 8px;
+  margin-bottom: 22px;
+  padding: 16px 18px;
+  background: #181818;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  color: #ffffff;
   font-size: 15px;
-  transition: all 0.25s ease;
+  transition: 0.25s ease;
+}
+
+.login-card input::placeholder {
+  color: #777;
 }
 
 .login-card input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 6px rgba(255, 230, 0, 0.25); /* ✅ Reduced glow */
   outline: none;
-  border-color: #1E5BB8;
-  box-shadow: 0 0 0 3px rgba(30, 91, 184, 0.15);
 }
 
-/* ===== Button ===== */
+/* ================= BUTTON ================= */
+
 .login-card button {
   width: 100%;
-  padding: 14px;
-  background: #1E5BB8;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 500;
+  padding: 15px;
+  border-radius: 10px;
   border: none;
-  border-radius: 8px;
+  background: var(--color-primary);
+  color: #000;
+  font-weight: 600;
+  font-size: 15px;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: 0.25s ease;
+  margin-top: 6px;
 }
 
 .login-card button:hover {
-  background: #0B3D91;
+  background: #e6cf00;
+  transform: translateY(-1px); /* ✅ subtle */
 }
 
-/* ===== Links ===== */
+.login-card button:active {
+  transform: translateY(0);
+}
+
+.login-card button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 230, 0, 0.4);
+}
+
+/* ================= LINKS ================= */
+
 .login-links {
   text-align: center;
-  margin-top: 25px;
+  margin-top: 24px;
 }
 
 .login-links a {
-  color: #0B3D91;
-  font-size: 14px;
+  color: #aaa;
+  font-size: 13px;
   text-decoration: none;
   margin: 0 8px;
+  transition: 0.2s ease;
 }
 
 .login-links a:hover {
+  color: var(--color-primary);
   text-decoration: underline;
 }
 
-/* ===== Validation ===== */
+/* ================= VALIDATION ================= */
+
 .error-text {
-  color: #d32f2f;
-  font-size: 13px;
-  margin-top: -10px;
-  margin-bottom: 12px;
+  font-size: 12px;
+  color: #ff4d4d;
+  margin-top: -14px;
+  margin-bottom: 14px;
 }
 
 .success-text {
-  color: #2e7d32;
-  font-size: 14px;
-  margin-top: 12px;
+  margin-top: 18px;
+  font-size: 13px;
+  color: #4caf50;
   text-align: center;
-}
-
-.password-hint {
-  font-size: 12px;
-  color: #777;
-  margin-top: -10px;
-  margin-bottom: 12px;
 }

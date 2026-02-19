@@ -1,14 +1,21 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Landing from "./pages/Landing";
-import Register from "./pages/Register";
-import ApplicationForm from "./pages/ApplicationForm";
+import ApplicationForm from "./pages/Application";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Landing />} />
-      <Route path="/register" element={<Register />} />
+
+      {/* Dashboard */}
+      <Route path="/dashboard" element={<Dashboard />} />
+
+      {/* Application Form */}
       <Route path="/application" element={<ApplicationForm />} />
+
+      {/* Redirect unknown route */}
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 }

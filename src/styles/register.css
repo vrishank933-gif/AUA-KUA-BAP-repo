@@ -1,97 +1,160 @@
-/* Background */
-.register-wrapper {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #eef2f7, #dbe4f0);
+/* ================= GLOBAL FIX ================= */
+
+* {
+  box-sizing: border-box;
+}
+
+/* ================= OVERLAY ================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);   /* 👈 Not too dark */
+  backdrop-filter: blur(4px);        /* 👈 Softer blur */
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
-  font-family: "Segoe UI", sans-serif;
+  z-index: 999;
+  padding: 40px 20px;
 }
 
-/* Card */
-.register-card {
-  width: 460px;
+/* ================= CARD ================= */
+
+.registration-card {
+  width: 420px;
   max-width: 95%;
-  background: #ffffff;
-  padding: 50px 40px;
-  border-radius: 12px;
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+  background: #0f0f0f;
+  border-radius: 16px;
+  padding: 55px 40px;   /* 👈 Balanced left-right spacing */
+  border: 1px solid rgba(255, 230, 0, 0.15);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.8);   /* 👈 Cleaner shadow (removed excess glow) */
+  color: #ffffff;
   position: relative;
+  animation: fadeInScale 0.25s ease-out;
 }
 
-/* Top Accent Bar */
-.register-card::before {
-  content: "";
+/* Animation */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ================= CLOSE BUTTON ================= */
+
+.close-btn {
   position: absolute;
-  top: 0;
-  left: 0;
-  height: 6px;
-  width: 100%;
-  background: #0B3D91;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-}
-
-/* Heading */
-.register-card h2 {
-  text-align: center;
-  color: #0B3D91;
-  font-size: 26px;
-  font-weight: 600;
-  margin-bottom: 35px;
-  letter-spacing: 0.5px;
-}
-
-/* Inputs */
-.register-card input {
-  width: 100%;
-  padding: 14px 16px;
-  margin-bottom: 18px;
-  border: 1px solid #cdd6e1;
-  border-radius: 8px;
-  font-size: 15px;
-  transition: all 0.3s ease;
-}
-
-.register-card input:focus {
-  outline: none;
-  border-color: #1E5BB8;
-  box-shadow: 0 0 0 3px rgba(30, 91, 184, 0.15);
-}
-
-/* Button */
-.register-card button {
-  width: 100%;
-  padding: 14px;
-  background: #1E5BB8;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 500;
-  border: none;
-  border-radius: 8px;
+  top: 16px;
+  right: 20px;
+  font-size: 20px;
+  color: #888;
   cursor: pointer;
-  margin-top: 10px;
-  transition: all 0.3s ease;
+  transition: 0.2s ease;
 }
 
-.register-card button:hover {
-  background: #0B3D91;
+.close-btn:hover {
+  color: var(--color-primary);
+}
+
+/* ================= HEADING ================= */
+
+.registration-card h2 {
+  text-align: center;
+  color: var(--color-primary);
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: 0.4px;
+}
+
+.form-subtext {
+  text-align: center;
+  color: #aaa;
+  font-size: 13px;
+  margin-bottom: 36px;
+}
+
+/* ================= INPUTS ================= */
+
+.registration-card input {
+  width: 100%;
+  margin-bottom: 22px;
+  padding: 16px 18px;   /* 👈 Controlled horizontal padding */
+  background: #181818;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  color: #ffffff;
+  caret-color: #ffffff;
+  font-size: 15px;
+  transition: 0.25s ease;
+}
+
+.registration-card input::placeholder {
+  color: #777;
+}
+
+.registration-card input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 6px rgba(255, 230, 0, 0.25);
+  outline: none;
+}
+
+/* ================= BUTTON ================= */
+
+.registration-card button {
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  border: none;
+  background: var(--color-primary);
+  color: #000;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.25s ease;
+  margin-top: 6px;
+}
+
+.registration-card button:hover {
+  background: #e6cf00;
   transform: translateY(-1px);
 }
 
-/* Validation Errors */
-.error-text {
-  font-size: 13px;
-  color: #d32f2f;
-  margin-top: -10px;
-  margin-bottom: 12px;
+.registration-card button:active {
+  transform: translateY(0);
 }
 
-/* Success Message */
+.registration-card button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ================= VALIDATION ================= */
+
+.error-text {
+  font-size: 12px;
+  color: #ff4d4d;
+  margin-top: -14px;
+  margin-bottom: 14px;
+}
+
 .success-text {
-  margin-top: 15px;
+   margin-top: 16px;
+  padding: 8px 12px;
   font-size: 14px;
-  color: #2e7d32;
+  font-weight: 500;
   text-align: center;
+  border-radius: 6px;
+
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.06);
+  border: 1px solid rgba(34, 197, 94, 0.18);
+
+  letter-spacing: 0.3px;
 }
