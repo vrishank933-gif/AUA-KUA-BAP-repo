@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Landing from "./pages/Landing";
-import ApplicationForm from "./pages/ApplicationForm";
-import Dashboard from "./pages/Dashboard";   // 👈 add this
+import ApplicationForm from "./pages/Application";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
       {/* Application Form */}
       <Route path="/application" element={<ApplicationForm />} />
 
-      {/* Redirect any unknown route to home */}
+      {/* Redirect unknown route */}
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
